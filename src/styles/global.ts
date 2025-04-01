@@ -19,4 +19,13 @@ export const GlobalStyle = createGlobalStyle`
   body, input, textarea, button {
     font: 400 1rem Roboto, sans-serif;
   }
+
+  .flex {
+    display: flex;
+    width: 100%;
+    
+    &.-space-between {
+        justify-content: space-between;
+    }
+  }
 `;

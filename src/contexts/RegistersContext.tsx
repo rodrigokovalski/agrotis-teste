@@ -1,31 +1,28 @@
-import {
-  ReactNode,
-  useEffect,
-  useState,
-  useCallback,
-  createContext,
-} from "react";
+import { ReactNode, useState, createContext } from "react";
 
 export type Propriedade = {
   id: number;
   nome: string;
 };
 
-export interface Register {
+export type Laboratorio = {
   id: number;
+  nome: string;
+};
+
+export interface Register {
+  id: string;
   nome: string;
   dataInicial: string;
   dataFinal: string;
   propriedades: Propriedade[];
-  laboratorio: {
-    id: number;
-    nome: string;
-  };
+  laboratorio: Laboratorio;
   observacoes: string;
 }
 
 interface RegistersContextType {
   registers: Register[];
+  setRegisters: React.Dispatch<React.SetStateAction<Register[]>>;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -38,19 +35,11 @@ interface RegistersProviderProps {
 export function RegistersProvider({ children }: RegistersProviderProps) {
   const [registers, setRegisters] = useState<Register[]>([]);
 
-  const fetchRegisters = useCallback(async () => {
-    // Pegar dados do localStorage
-    setRegisters([]);
-  }, []);
-
-  useEffect(() => {
-    fetchRegisters();
-  }, [fetchRegisters]);
-
   return (
     <RegistersContext.Provider
       value={{
         registers,
+        setRegisters,
       }}
     >
       {children}
